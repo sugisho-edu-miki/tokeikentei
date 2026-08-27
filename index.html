@@ -1,553 +1,1318 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>時計検定 - 10級〜1級マスター</title>
-  
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%234A90E2' stroke='%23357ABD' stroke-width='6'/><circle cx='50' cy='50' r='38' fill='white'/><text x='50' y='25' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>12</text><text x='78' y='54' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>3</text><text x='50' y='82' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>6</text><text x='22' y='54' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>9</text><line x1='50' y1='50' x2='50' y2='30' stroke='%23E74C3C' stroke-width='6' stroke-linecap='round'/><line x1='50' y1='50' x2='68' y2='50' stroke='%233498DB' stroke-width='4' stroke-linecap='round'/><circle cx='50' cy='50' r='4' fill='%23333'/></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>めざせ！とけいハカセ ⏰ とけいけんてい</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap');
 
-  <style>
-    :root {
-      --primary-color: #4A90E2;
-      --bg-color: #F0F4F8;
-      --clock-bg: #FFFFFF;
-      --clock-border: #333333;
-    }
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
 
-    body.skin-normal { --clock-bg: #FFFFFF; --clock-border: #4A90E2; }
-    body.skin-lion { --clock-bg: #FFF3E0; --clock-border: #FB8C00; }
-    body.skin-robot { --clock-bg: #E0F7FA; --clock-border: #00ACC1; }
-    body.skin-space { --clock-bg: #1A237E; --clock-border: #7E57C2; }
-    body.skin-gold { --clock-bg: #FFFDE7; --clock-border: #FBC02D; }
+        /* スキンテーマごとのカラー変数設定 */
+        .skin-normal {
+            --bg-outer: #3b82f6;
+            --bg-inner: #ffffff;
+            --dial-text: #1e3a8a;
+            --hour-hand: #ef4444;
+            --minute-hand: #2563eb;
+            --center-cap: #1e293b;
+            --card-border: #93c5fd;
+        }
+        .skin-lion {
+            --bg-outer: #f97316;
+            --bg-inner: #fef08a;
+            --dial-text: #7c2d12;
+            --hour-hand: #b91c1c;
+            --minute-hand: #ea580c;
+            --center-cap: #9a3412;
+            --card-border: #fdba74;
+        }
+        .skin-robot {
+            --bg-outer: #475569;
+            --bg-inner: #e2e8f0;
+            --dial-text: #0f172a;
+            --hour-hand: #0284c7;
+            --minute-hand: #0d9488;
+            --center-cap: #334155;
+            --card-border: #94a3b8;
+        }
+        .skin-space {
+            --bg-outer: #6366f1;
+            --bg-inner: #0f172a;
+            --dial-text: #e0e7ff;
+            --hour-hand: #f43f5e;
+            --minute-hand: #38bdf8;
+            --center-cap: #cbd5e1;
+            --card-border: #a5b4fc;
+        }
+        .skin-gold {
+            --bg-outer: #d97706;
+            --bg-inner: #fffbeb;
+            --dial-text: #78350f;
+            --hour-hand: #dc2626;
+            --minute-hand: #b45309;
+            --center-cap: #78350f;
+            --card-border: #fde68a;
+        }
+        .skin-penguin {
+            --bg-outer: #0284c7;
+            --bg-inner: #f0f9ff;
+            --dial-text: #0c4a6e;
+            --hour-hand: #ea580c;
+            --minute-hand: #0284c7;
+            --center-cap: #0369a1;
+            --card-border: #7dd3fc;
+        }
+        .skin-dino {
+            --bg-outer: #16a34a;
+            --bg-inner: #f0fdf4;
+            --dial-text: #14532d;
+            --hour-hand: #dc2626;
+            --minute-hand: #15803d;
+            --center-cap: #166534;
+            --card-border: #86efac;
+        }
+        .skin-cat {
+            --bg-outer: #ec4899;
+            --bg-inner: #fdf2f8;
+            --dial-text: #831843;
+            --hour-hand: #db2777;
+            --minute-hand: #9333ea;
+            --center-cap: #be185d;
+            --card-border: #fbcfe8;
+        }
+        .skin-wizard {
+            --bg-outer: #8b5cf6;
+            --bg-inner: #faf5ff;
+            --dial-text: #4c1d95;
+            --hour-hand: #d946ef;
+            --minute-hand: #7c3aed;
+            --center-cap: #6d28d9;
+            --card-border: #ddd6fe;
+        }
+        .skin-diamond {
+            --bg-outer: #06b6d4;
+            --bg-inner: #ecfeff;
+            --dial-text: #164e63;
+            --hour-hand: #2563eb;
+            --minute-hand: #0891b2;
+            --center-cap: #155e75;
+            --card-border: #a5f3fc;
+        }
 
-    * { box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; user-select: none; }
-    body { margin: 0; padding: 10px; background-color: var(--bg-color); color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-    .container { width: 100%; max-width: 500px; background: white; border-radius: 20px; padding: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); text-align: center; }
-    
-    h1 { margin: 5px 0 10px; font-size: 24px; color: var(--primary-color); }
-    .screen { display: none; }
-    .screen.active { display: block; }
+        .bounce-short {
+            animation: bounce 0.5s ease infinite alternate;
+        }
 
-    .clock-container { position: relative; width: 200px; height: 200px; margin: 10px auto; }
-    .clock-svg { width: 100%; height: 100%; }
-    .clock-face { fill: var(--clock-bg); stroke: var(--clock-border); stroke-width: 8; }
-    .clock-number { font-size: 16px; font-weight: bold; fill: #333; text-anchor: middle; dominant-baseline: central; }
-    .minute-tick { fill: #A0AEC0; }
-    .hand-hour { stroke: #E74C3C; stroke-width: 7; stroke-linecap: round; }
-    .hand-minute { stroke: #3498DB; stroke-width: 5; stroke-linecap: round; }
-    .center-dot { fill: #333; }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
 
-    .btn { background: #4A90E2; color: white; border: none; padding: 10px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; margin: 4px; box-shadow: 0 4px 0 #357ABD; }
-    .btn:active { transform: translateY(4px); box-shadow: none; }
-    .btn-secondary { background: #95A5A6; box-shadow: 0 4px 0 #7F8C8D; }
-    
-    .level-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 10px 0; }
-    .level-btn { padding: 8px 0; font-size: 14px; border-radius: 10px; }
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
 
-    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
 
-    .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 250px; margin: 10px auto; }
-    .key-btn { background: #E2E8F0; border: none; padding: 12px; font-size: 20px; font-weight: bold; border-radius: 10px; cursor: pointer; }
-    
-    .input-display { font-size: 24px; font-weight: bold; margin: 5px; padding: 5px 15px; background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 10px; display: inline-block; }
-    .unit-box { padding: 2px 8px; border-radius: 6px; cursor: pointer; }
-    .unit-box.active { background-color: #3498DB; color: white; }
+        .sparkle-anim {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
 
-    .status-bar { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; margin-bottom: 5px; background: #EBF8FF; padding: 8px 15px; border-radius: 10px; }
-    .skin-selector { display: flex; justify-content: center; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
-    .skin-card { border: 2px solid #DDD; border-radius: 10px; padding: 6px; cursor: pointer; text-align: center; width: 70px; }
-    .skin-card.selected { border-color: #4A90E2; background: #EBF8FF; }
-    .skin-card.locked { opacity: 0.5; cursor: not-allowed; }
+        /* 賞状の紙ふぶきアニメーション */
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 14px;
+            top: -20px;
+            opacity: 0.8;
+            animation: fall 3.5s linear infinite;
+        }
 
-    .feedback { font-size: 18px; font-weight: bold; height: 25px; margin: 5px 0; color: #E74C3C; }
-    .review-list { text-align: left; max-height: 180px; overflow-y: auto; background: #F8FAFC; padding: 10px; border-radius: 10px; margin: 10px 0; font-size: 13px; }
-  </style>
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* 印刷設定 */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            header, #app-container > div:not(#screen-certificate) {
+                display: none !important;
+            }
+            #screen-certificate {
+                display: flex !important;
+                border: none !important;
+                box-shadow: none !important;
+                width: 100% !important;
+                max-width: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
-<body class="skin-normal">
+<body class="bg-amber-50 min-h-screen text-slate-800 flex flex-col items-center justify-between p-2 sm:p-4 relative overflow-x-hidden">
 
-<div class="container">
-  <h1>🕰️ とけいけんてい</h1>
+    <!-- ヘッダー -->
+    <header class="w-full max-w-lg text-center my-1.5 sm:my-2">
+        <h1 class="text-2xl sm:text-3xl font-black text-amber-600 tracking-wider flex items-center justify-center gap-2">
+            <span>⏰</span> めざせ！とけいハカセ <span>✨</span>
+        </h1>
+        <p class="text-xs sm:text-sm font-bold text-amber-700">しょうがく2ねんせいむけ とけいけんてい（10きゅう〜1きゅう）</p>
+    </header>
 
-  <div id="screen-home" class="screen active">
-    <p style="margin:5px 0; font-weight:bold;">きゅうをえらんでね！</p>
-    <div class="level-grid" id="level-buttons"></div>
-
-    <h3 style="margin:10px 0 5px;">🎨 きせかえ</h3>
-    <div class="skin-selector" id="skin-selector"></div>
-
-    <button class="btn" onclick="startQuiz()" style="font-size:18px; padding:12px 30px; margin-top:10px;">けんていをはじめる！</button>
-  </div>
-
-  <div id="screen-quiz" class="screen">
-    <div class="status-bar">
-      <span id="quiz-progress">だい 1 / 10 もん</span>
-      <span id="quiz-timer">⏱️ 03:00</span>
-    </div>
-
-    <div id="question-text" style="font-size: 17px; font-weight: bold; margin: 5px 0; min-height: 48px; display:flex; align-items:center; justify-content:center;"></div>
-
-    <div class="clock-container" id="clock-box">
-      <svg class="clock-svg" viewBox="0 0 200 200" id="clock-svg">
-        <circle cx="100" cy="100" r="90" class="clock-face"/>
-        <g id="minute-ticks"></g>
-        <g id="clock-numbers"></g>
-        <line id="hour-hand" x1="100" y1="100" x2="100" y2="55" class="hand-hour"/>
-        <line id="minute-hand" x1="100" y1="100" x2="100" y2="35" class="hand-minute"/>
-        <circle cx="100" cy="100" r="6" class="center-dot"/>
-      </svg>
-    </div>
-
-    <div id="feedback" class="feedback"></div>
-    <div id="answer-area"></div>
-  </div>
-
-  <div id="screen-result" class="screen">
-    <h2 id="result-title" style="margin:10px 0;"></h2>
-    <p id="result-score" style="font-size: 20px; font-weight: bold; margin:5px 0;"></p>
-    <div id="unlocked-msg" style="color: #E67E22; font-weight: bold; margin: 10px 0;"></div>
-
-    <div id="review-area" style="display:none;">
-      <h3>おさらい</h3>
-      <div class="review-list" id="review-list"></div>
-    </div>
-
-    <button class="btn" onclick="showScreen('screen-home')" style="margin-top:15px;">もういちど挑戦！</button>
-  </div>
-</div>
-
-<script>
-  let currentLevel = 10;
-  let currentSkin = 'normal';
-  let unlockedSkins = ['normal'];
-  let currentQuestionIndex = 0;
-  let questions = [];
-  let mistakes = [];
-  let timerInterval;
-  let timeRemaining = 180;
-  let targetHour = 0, targetMinute = 0;
-  let userHour = 12, userMinute = 0;
-  let currentMistakeCount = 0;
-
-  let inputH = '', inputM = '';
-  let activeInput = 'h';
-
-  const SKINS = [
-    { id: 'normal', name: 'ふつう', icon: '⏰', level: 10 },
-    { id: 'lion', name: 'らいおん', icon: '🦁', level: 8 },
-    { id: 'robot', name: 'ろぼっと', icon: '🤖', level: 6 },
-    { id: 'space', name: 'うちゅう', icon: '🚀', level: 4 },
-    { id: 'gold', name: 'ごーるど', icon: '👑', level: 1 }
-  ];
-
-  window.onload = () => {
-    initMinuteTicks();
-    initClockNumbers();
-    renderLevelButtons();
-    renderSkinSelector();
-    setupClockDrag();
-  };
-
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  function initMinuteTicks() {
-    const g = document.getElementById('minute-ticks');
-    g.innerHTML = '';
-    for (let i = 0; i < 60; i++) {
-      if (i % 5 === 0) continue;
-      const angle = (i * 6 - 90) * (Math.PI / 180);
-      const x = 100 + 82 * Math.cos(angle);
-      const y = 100 + 82 * Math.sin(angle);
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', x);
-      circle.setAttribute('cy', y);
-      circle.setAttribute('r', '1.5');
-      circle.setAttribute('class', 'minute-tick');
-      g.appendChild(circle);
-    }
-  }
-
-  function initClockNumbers() {
-    const g = document.getElementById('clock-numbers');
-    g.innerHTML = '';
-    for (let i = 1; i <= 12; i++) {
-      const angle = (i * 30 - 90) * (Math.PI / 180);
-      const x = 100 + 68 * Math.cos(angle);
-      const y = 100 + 68 * Math.sin(angle);
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('x', x);
-      text.setAttribute('y', y);
-      text.setAttribute('class', 'clock-number');
-      text.textContent = i;
-      g.appendChild(text);
-    }
-  }
-
-  function renderLevelButtons() {
-    const container = document.getElementById('level-buttons');
-    container.innerHTML = '';
-    for (let l = 10; l >= 1; l--) {
-      const btn = document.createElement('button');
-      btn.className = `btn level-btn ${currentLevel === l ? '' : 'btn-secondary'}`;
-      btn.textContent = `${l}級`;
-      btn.onclick = () => { currentLevel = l; renderLevelButtons(); };
-      container.appendChild(btn);
-    }
-  }
-
-  function renderSkinSelector() {
-    const container = document.getElementById('skin-selector');
-    container.innerHTML = '';
-    SKINS.forEach(skin => {
-      const isUnlocked = unlockedSkins.includes(skin.id);
-      const card = document.createElement('div');
-      card.className = `skin-card ${currentSkin === skin.id ? 'selected' : ''} ${isUnlocked ? '' : 'locked'}`;
-      card.innerHTML = `<div style="font-size: 20px;">${skin.icon}</div><div style="font-size: 11px;">${skin.name}</div>`;
-      if (isUnlocked) {
-        card.onclick = () => {
-          currentSkin = skin.id;
-          document.body.className = `skin-${skin.id}`;
-          renderSkinSelector();
-        };
-      }
-      container.appendChild(card);
-    });
-  }
-
-  function drawClock(h, m) {
-    const hAngle = ((h % 12) + m / 60) * 30 - 90;
-    const mAngle = m * 6 - 90;
-    document.getElementById('hour-hand').setAttribute('x2', 100 + 45 * Math.cos(hAngle * Math.PI / 180));
-    document.getElementById('hour-hand').setAttribute('y2', 100 + 45 * Math.sin(hAngle * Math.PI / 180));
-    document.getElementById('minute-hand').setAttribute('x2', 100 + 65 * Math.cos(mAngle * Math.PI / 180));
-    document.getElementById('minute-hand').setAttribute('y2', 100 + 65 * Math.sin(mAngle * Math.PI / 180));
-  }
-
-  function startQuiz() {
-    currentQuestionIndex = 0;
-    mistakes = [];
-    timeRemaining = 180;
-    generateQuestions();
-    showScreen('screen-quiz');
-    nextQuestion();
-    
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-      timeRemaining--;
-      const min = String(Math.floor(timeRemaining / 60)).padStart(2, '0');
-      const sec = String(timeRemaining % 60).padStart(2, '0');
-      document.getElementById('quiz-timer').textContent = `⏱️ ${min}:${sec}`;
-      if (timeRemaining <= 0) finishQuiz();
-    }, 1000);
-  }
-
-  // 全10級対応の問題生成
-  function generateQuestions() {
-    questions = [];
-    for (let i = 0; i < 10; i++) {
-      let h = Math.floor(Math.random() * 12) + 1;
-      let m = 0;
-      let qData = { hour: h, minute: 0, type: 'choice', text: '', choices: [], ansStr: '' };
-
-      if (currentLevel === 10) {
-        m = Math.random() < 0.5 ? 0 : 30;
-        qData.type = Math.random() < 0.5 ? 'choice' : 'drag';
-      } else if (currentLevel === 9) {
-        m = Math.floor(Math.random() * 12) * 5;
-        qData.type = ['choice', 'keypad', 'drag'][Math.floor(Math.random()*3)];
-      } else if (currentLevel >= 6) {
-        m = Math.floor(Math.random() * 60);
-        qData.type = ['choice', 'keypad', 'drag'][Math.floor(Math.random()*3)];
-      } else if (currentLevel === 5) {
-        // 5級: 〜分前表記
-        h = Math.floor(Math.random() * 12) + 1;
-        let diff = (Math.floor(Math.random() * 3) + 1) * 5; // 5, 10, 15分前
-        m = 60 - diff;
-        let nextH = h % 12 + 1;
-        qData.type = 'text-choice';
-        qData.text = `時計は「${nextH}時 ${diff}分前」をさしています。何時何分？`;
-        qData.ansStr = `${h}時 ${m}分`;
-        qData.choices = [qData.ansStr, `${nextH}時 ${diff}分`, `${h}時 ${diff}分`, `${nextH}時 ${m}分`].sort(()=>Math.random()-0.5);
-      } else if (currentLevel === 4) {
-        // 4級: 〜分後・〜分前の計算
-        m = Math.floor(Math.random() * 12) * 5;
-        let addM = (Math.floor(Math.random() * 4) + 1) * 15; // 15, 30, 45, 60分
-        let calcM = m + addM;
-        let calcH = h + Math.floor(calcM / 60);
-        calcM %= 60; if (calcH > 12) calcH -= 12;
-        qData.type = 'text-choice';
-        qData.text = `「${h}時${m}分」の ${addM}分後 は何時何分？`;
-        qData.ansStr = `${calcH}時 ${calcM}分`;
-        qData.choices = [qData.ansStr, `${h}時 ${calcM}分`, `${calcH}時 ${m}分`, `${(calcH%12)+1}時 ${calcM}分`].sort(()=>Math.random()-0.5);
-      } else if (currentLevel === 3) {
-        // 3級: かかった時間（経過時間）
-        let dur = (Math.floor(Math.random() * 5) + 1) * 10 + 10; // 20〜60分
-        let endM = m + dur;
-        let endH = h + Math.floor(endM / 60);
-        endM %= 60; if (endH > 12) endH -= 12;
-        qData.type = 'text-choice';
-        qData.text = `「${h}時${m}分」から「${endH}時${endM}分」までに 何分 かかった？`;
-        qData.ansStr = `${dur}分間`;
-        qData.choices = [`${dur}分間`, `${dur+10}分間`, `${Math.max(10, dur-10)}分間`, `${dur+15}分間`].sort(()=>Math.random()-0.5);
-      } else if (currentLevel === 2) {
-        // 2級: 午前・午後 / 24時間表記
-        let isPM = Math.random() < 0.5;
-        let h24 = isPM ? h + 12 : h;
-        if (h24 === 24) h24 = 12;
-        qData.type = 'text-choice';
-        qData.text = `「${isPM?'午後':'午前'}${h}時 ${m}分」を24時間表示にすると？`;
-        qData.ansStr = `${h24}時 ${m}分`;
-        qData.choices = [`${h24}時 ${m}分`, `${(h24+12)%24}時 ${m}分`, `${h}時 ${m}分`, `${(h24+1)%24}時 ${m}分`].sort(()=>Math.random()-0.5);
-      } else if (currentLevel === 1) {
-        // 1級: 時間の計算（総合）
-        let addH = Math.floor(Math.random() * 2) + 1;
-        let addM = Math.floor(Math.random() * 8) * 5 + 10;
-        let calcM = m + addM;
-        let calcH = h + addH + Math.floor(calcM / 60);
-        calcM %= 60; if (calcH > 12) calcH -= 12;
-        qData.type = 'text-choice';
-        qData.text = `「${h}時${m}分」の ${addH}時間${addM}分後 は何時何分？`;
-        qData.ansStr = `${calcH}時 ${calcM}分`;
-        qData.choices = [`${calcH}時 ${calcM}分`, `${calcH}時 ${(calcM+15)%60}分`, `${(calcH%12)+1}時 ${calcM}分`, `${calcH-1}時 ${calcM}分`].sort(()=>Math.random()-0.5);
-      }
-
-      qData.hour = h;
-      qData.minute = m;
-      questions.push(qData);
-    }
-  }
-
-  function clearKeypadInput() {
-    inputH = ''; inputM = ''; activeInput = 'h';
-    updateKeyDisplay();
-  }
-
-  function setMode(mode) {
-    activeInput = mode;
-    updateKeyDisplay();
-  }
-
-  function updateKeyDisplay() {
-    const elH = document.getElementById('in-h');
-    const elM = document.getElementById('in-m');
-    const boxH = document.getElementById('box-h');
-    const boxM = document.getElementById('box-m');
-    if (elH && elM) {
-      elH.textContent = inputH || '--';
-      elM.textContent = inputM || '--';
-      boxH.className = activeInput === 'h' ? 'unit-box active' : 'unit-box';
-      boxM.className = activeInput === 'm' ? 'unit-box active' : 'unit-box';
-    }
-  }
-
-  function nextQuestion() {
-    if (currentQuestionIndex >= 10) { finishQuiz(); return; }
-
-    currentMistakeCount = 0;
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('quiz-progress').textContent = `だい ${currentQuestionIndex + 1} / 10 もん`;
-    
-    const q = questions[currentQuestionIndex];
-    targetHour = q.hour;
-    targetMinute = q.minute;
-
-    const answerArea = document.getElementById('answer-area');
-    const clockBox = document.getElementById('clock-box');
-    answerArea.innerHTML = '';
-
-    if (q.type === 'text-choice') {
-      clockBox.style.display = 'none';
-      document.getElementById('question-text').textContent = q.text;
-
-      const grid = document.createElement('div');
-      grid.className = 'btn-grid';
-      q.choices.forEach(ans => {
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-secondary';
-        btn.textContent = ans;
-        btn.onclick = () => {
-          if (ans === q.ansStr) handleCorrect();
-          else handleWrong();
-        };
-        grid.appendChild(btn);
-      });
-      answerArea.appendChild(grid);
-
-    } else {
-      clockBox.style.display = 'block';
-
-      if (q.type === 'drag') {
-        document.getElementById('question-text').textContent = `はりを 「${targetHour}じ ${targetMinute}ふん」 にあわせてね！`;
-        userHour = 12; userMinute = 0;
-        drawClock(userHour, userMinute);
+    <!-- 主なコンテンツ表示エリア -->
+    <main id="app-container" class="w-full max-w-lg bg-white rounded-3xl shadow-xl border-4 border-amber-300 p-3 sm:p-4 flex-1 flex flex-col justify-between relative overflow-hidden">
         
-        const submitBtn = document.createElement('button');
-        submitBtn.className = 'btn';
-        submitBtn.textContent = 'これで決定！';
-        submitBtn.onclick = checkDragAnswer;
-        answerArea.appendChild(submitBtn);
+        <!-- 1. スタート・きゅうせんたく画面 -->
+        <div id="screen-start" class="flex flex-col items-center justify-between space-y-3 py-1 h-full">
+            <div class="text-center space-y-1">
+                <span class="bg-amber-200 text-amber-900 text-xs font-bold px-3 py-1 rounded-full">けんていモード</span>
+                <h2 class="text-base sm:text-xl font-bold text-slate-700">ちょうせんする「きゅう」をえらんでね！</h2>
+            </div>
 
-      } else {
-        document.getElementById('question-text').textContent = 'なんじ なんふん かな？';
-        drawClock(targetHour, targetMinute);
+            <!-- ユーザーネーム（ちょうせんしゃの なまえ）入力エリア -->
+            <div class="w-full bg-amber-100/70 p-2 sm:p-2.5 rounded-2xl border-2 border-amber-300 flex items-center justify-center gap-2 shadow-sm">
+                <label for="username-input" class="text-xs sm:text-sm font-black text-amber-900 whitespace-nowrap">👤 なまえ：</label>
+                <input id="username-input" type="text" value="とけいハカセ" placeholder="なまえを いれてね" oninput="updateUsername(this.value)" class="w-full max-w-[200px] text-center font-black text-sm sm:text-base text-amber-900 bg-white border border-amber-400 rounded-xl px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-inner">
+            </div>
 
-        if (q.type === 'choice') {
-          const grid = document.createElement('div');
-          grid.className = 'btn-grid';
-          const choices = generateChoices(targetHour, targetMinute);
-          choices.forEach(c => {
-            const btn = document.createElement('button');
-            btn.className = 'btn btn-secondary';
-            btn.textContent = `${c.h}じ ${c.m}ふん`;
-            btn.onclick = () => checkChoiceAnswer(c.h, c.m);
-            grid.appendChild(btn);
-          });
-          answerArea.appendChild(grid);
+            <!-- 表彰状閲覧ボタン（全級合格者用） -->
+            <button id="btn-view-certificate" onclick="showCertificateScreen()" class="hidden w-full py-2 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-amber-950 font-black text-sm sm:text-base rounded-2xl shadow-md border-2 border-yellow-200 flex items-center justify-center gap-2 bounce-short">
+                <span>👑</span> <span>ひょうしょうじょうを みる！</span> <span>📜</span>
+            </button>
 
-        } else if (q.type === 'keypad') {
-          const display = document.createElement('div');
-          display.className = 'input-display';
-          display.innerHTML = `<span id="box-h" class="unit-box active" onclick="setMode('h')"><span id="in-h">--</span>じ</span> <span id="box-m" class="unit-box" onclick="setMode('m')"><span id="in-m">--</span>ふん</span>`;
-          answerArea.appendChild(display);
+            <!-- 級選択グリッド -->
+            <div id="grade-selector" class="grid grid-cols-2 sm:grid-cols-5 gap-2 w-full my-1 max-h-56 sm:max-h-none overflow-y-auto p-1">
+                <!-- JSで動的生成 -->
+            </div>
 
-          const keypad = document.createElement('div');
-          keypad.className = 'keypad';
-          for (let i = 1; i <= 9; i++) {
-            const k = document.createElement('button');
-            k.className = 'key-btn'; k.textContent = i;
-            k.onclick = () => pressKey(i);
-            keypad.appendChild(k);
-          }
-          const k0 = document.createElement('button');
-          k0.className = 'key-btn'; k0.textContent = '0'; k0.onclick = () => pressKey(0);
-          const kDel = document.createElement('button');
-          kDel.className = 'key-btn'; kDel.textContent = 'けす'; kDel.onclick = clearKeypadInput;
-          const kSub = document.createElement('button');
-          kSub.className = 'key-btn'; kSub.style.background = '#4A90E2'; kSub.style.color = '#FFF'; kSub.textContent = 'OK';
-          kSub.onclick = () => checkChoiceAnswer(parseInt(inputH || -1), parseInt(inputM || -1));
+            <!-- スキン（ごほうび着せ替え）選択エリア -->
+            <div class="w-full bg-slate-50 p-2.5 rounded-2xl border-2 border-slate-200 text-center space-y-1.5">
+                <div class="flex justify-between items-center px-1">
+                    <span class="text-xs font-bold text-slate-600">🎨 ごほうび とけいデザイン</span>
+                    <span id="skin-count-badge" class="text-[10px] font-bold bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full">1/10 かいほう</span>
+                </div>
+                <div id="skin-selector" class="grid grid-cols-5 gap-1.5 justify-center">
+                    <!-- JSで動的生成 -->
+                </div>
+            </div>
 
-          keypad.appendChild(kDel); keypad.appendChild(k0); keypad.appendChild(kSub);
-          answerArea.appendChild(keypad);
-          clearKeypadInput();
+            <button id="btn-start" onclick="startExam()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-lg sm:text-xl rounded-2xl shadow-lg border-b-4 border-emerald-700 active:translate-y-1 transition transform">
+                けんていをはじめる！🚀
+            </button>
+
+            <!-- はじめからやりなおす（データリセット）ボタン -->
+            <div class="w-full text-center pt-1">
+                <button onclick="openResetModal()" class="text-xs font-bold text-slate-400 hover:text-rose-500 underline transition">
+                    🔄 データをけして はじめからやりなおす
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. 検定実行中画面 -->
+        <div id="screen-exam" class="hidden flex-col h-full justify-between space-y-2">
+            <!-- 上部ステータスバー -->
+            <div class="flex justify-between items-center bg-amber-100 p-2 sm:p-2.5 rounded-2xl font-bold text-sm">
+                <div class="flex items-center gap-1.5">
+                    <span class="bg-amber-500 text-white px-2 py-0.5 rounded-lg text-xs font-black" id="current-grade-badge">10きゅう</span>
+                    <span class="text-slate-700 text-xs sm:text-sm" id="question-progress">だい 1 / 10 もん</span>
+                </div>
+                <div class="flex items-center gap-1 font-mono text-rose-600 bg-white px-2.5 py-0.5 rounded-xl shadow-inner border border-rose-200">
+                    <span>⏱️</span>
+                    <span id="timer-text" class="font-black text-base sm:text-lg">03:00</span>
+                </div>
+            </div>
+
+            <!-- 問題文 -->
+            <div class="text-center py-1.5 px-2 bg-amber-50 rounded-xl border border-amber-200 min-h-[48px] flex items-center justify-center">
+                <p id="question-text" class="text-sm sm:text-base font-bold text-slate-800">とけいは なんじ なんぷん かな？</p>
+            </div>
+
+            <!-- 時計表示領域 (SVG) -->
+            <div class="flex justify-center items-center my-auto py-1">
+                <div id="clock-container" class="relative w-52 h-52 sm:w-60 sm:h-60 rounded-full shadow-lg border-8 flex items-center justify-center transition-colors duration-300 skin-normal">
+                    <svg id="clock-svg" class="w-full h-full" viewBox="0 0 200 200">
+                        <!-- 円盤背景 -->
+                        <circle cx="100" cy="100" r="94" fill="var(--bg-inner)" stroke="var(--bg-outer)" stroke-width="4" />
+                        
+                        <!-- モチーフイラスト描画領域 -->
+                        <g id="clock-illustration"></g>
+
+                        <!-- 目盛りと数字 (JS生成) -->
+                        <g id="clock-dial"></g>
+
+                        <!-- 短針（時針） -->
+                        <line id="hour-hand" x1="100" y1="100" x2="100" y2="58" stroke="var(--hour-hand)" stroke-width="8" stroke-linecap="round" />
+                        
+                        <!-- 長針（分針） -->
+                        <line id="minute-hand" x1="100" y1="100" x2="100" y2="32" stroke="var(--minute-hand)" stroke-width="5" stroke-linecap="round" />
+
+                        <!-- 中心キャップ -->
+                        <circle cx="100" cy="100" r="7" fill="var(--center-cap)" stroke="#ffffff" stroke-width="1.5" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- フィードバック（やり直しメッセージ） -->
+            <div id="feedback-msg" class="h-5 text-center text-xs sm:text-sm font-bold text-rose-500 flex items-center justify-center gap-1 opacity-0 transition-opacity">
+                <span>❌</span> <span>ちがうよ！もういっかい チャレンジ！</span>
+            </div>
+
+            <!-- 解答エリア（動的切り替え） -->
+            <div id="answer-area" class="w-full min-h-[110px] flex items-center justify-center">
+                <!-- A. 4択ボタン -->
+                <div id="input-choice" class="grid grid-cols-2 gap-2 w-full"></div>
+
+                <!-- B. テンキー入力 -->
+                <div id="input-keypad" class="hidden flex-col items-center gap-1.5 w-full">
+                    <div class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl w-full justify-center">
+                        <div id="keypad-display" class="font-mono text-xl font-bold bg-white px-3 py-0.5 rounded-lg border border-slate-300 min-w-[100px] text-center tracking-widest">
+                            --:--
+                        </div>
+                        <button onclick="clearKeypad()" class="bg-slate-300 hover:bg-slate-400 text-slate-700 px-3 py-1 rounded-lg font-bold text-xs">けす</button>
+                    </div>
+                    <div class="grid grid-cols-5 gap-1 w-full">
+                        <button onclick="pressKey('1')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">1</button>
+                        <button onclick="pressKey('2')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">2</button>
+                        <button onclick="pressKey('3')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">3</button>
+                        <button onclick="pressKey('4')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">4</button>
+                        <button onclick="pressKey('5')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">5</button>
+                        <button onclick="pressKey('6')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">6</button>
+                        <button onclick="pressKey('7')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">7</button>
+                        <button onclick="pressKey('8')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">8</button>
+                        <button onclick="pressKey('9')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">9</button>
+                        <button onclick="pressKey('0')" class="py-1.5 bg-slate-200 hover:bg-amber-200 font-bold text-base rounded-lg">0</button>
+                    </div>
+                    <button onclick="submitKeypad()" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow text-sm">こたえる！</button>
+                </div>
+
+                <!-- C. 針ドラッグ確定ボタン -->
+                <div id="input-drag" class="hidden flex-col items-center gap-1.5 w-full">
+                    <p class="text-xs text-slate-500 font-bold text-center">👆 とけいの「ながい はり（あお）」をうごかしてね！</p>
+                    <button onclick="submitDragAnswer()" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-md text-base">
+                        この じかんに する！
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 採点結果画面 (合格 / 不合格) -->
+        <div id="screen-result" class="hidden flex-col items-center justify-between h-full py-2 space-y-3">
+            <div class="text-center space-y-1">
+                <div id="result-header-badge" class="inline-block px-3 py-0.5 rounded-full text-xs font-bold bg-amber-200 text-amber-900">
+                    けっか はっぴょう
+                </div>
+                <h2 id="result-title" class="text-2xl sm:text-3xl font-black text-slate-800">
+                    <!-- JSで変更 -->
+                </h2>
+                <p id="result-score" class="text-base font-bold text-amber-600">
+                    10もんちゅう 8もん せいかい！
+                </p>
+            </div>
+
+            <!-- ごほうびスキン解放通知カード -->
+            <div id="unlock-notification" class="hidden bg-gradient-to-r from-yellow-100 to-amber-100 border-2 border-yellow-400 p-3 rounded-2xl text-center space-y-1 w-full bounce-short shadow-md">
+                <div class="text-xs font-bold text-yellow-800 flex items-center justify-center gap-1">
+                    <span>🎉</span> <span>あたらしい とけいデザインが かいほうされたよ！</span>
+                </div>
+                <div id="unlocked-skin-name" class="text-lg font-black text-amber-800 flex items-center justify-center gap-2">
+                    <span id="unlocked-skin-icon" class="text-2xl">🦁</span>
+                    <span id="unlocked-skin-title">「ライオンとけい」</span>
+                </div>
+                <p class="text-[11px] text-amber-700 font-bold">「メニュー」で えらんで つかってね！</p>
+            </div>
+
+            <!-- 全級クリア特別アナウンス（全級合格時） -->
+            <div id="all-clear-banner" class="hidden bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 p-3 rounded-2xl text-center border-2 border-amber-600 shadow-xl space-y-2 bounce-short">
+                <div class="text-base font-black text-amber-950 flex items-center justify-center gap-2">
+                    <span>👑</span> <span>すごーい！ ぜんぶの きゅうを クリア！</span> <span>👑</span>
+                </div>
+                <p class="text-xs font-bold text-amber-900">きみは まさに「とけいハカセ」だ！ ひょうしょうじょうを もらおう！</p>
+                <button onclick="showCertificateScreen()" class="w-full py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-black text-sm rounded-xl shadow-lg border-b-4 border-rose-700">
+                    📜 ひょうしょうじょうを もらう！
+                </button>
+            </div>
+
+            <!-- 間違えた問題のおさらいリスト -->
+            <div id="review-section" class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-2.5 flex-1 overflow-y-auto max-h-40 text-xs">
+                <div class="font-bold text-slate-600 mb-1.5 border-b pb-1">📝 おさらい（まちがえた もんだい）</div>
+                <div id="review-list" class="space-y-1.5">
+                    <!-- JSで動的生成 -->
+                </div>
+            </div>
+
+            <div class="flex gap-2 w-full">
+                <button onclick="showStartScreen()" class="flex-1 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-center text-sm">
+                    メニューへ
+                </button>
+                <button id="btn-retry" onclick="startExam()" class="flex-1 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm sm:text-base rounded-xl shadow-lg border-b-4 border-emerald-700 text-center">
+                    もういちど ちょうせん！🔥
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. 表彰状（ひょうしょうじょう）画面 -->
+        <div id="screen-certificate" class="hidden flex-col items-center justify-between h-full py-2 space-y-3 relative">
+            
+            <!-- 紙ふぶきエフェクト発生用コンテナ -->
+            <div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden rounded-3xl"></div>
+
+            <!-- 表彰状フレーム -->
+            <div class="w-full bg-amber-50 border-8 border-double border-yellow-600 p-4 rounded-2xl shadow-inner text-center space-y-3 relative my-auto">
+                
+                <!-- 飾りの金バッジ -->
+                <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-yellow-950 font-black text-xs px-4 py-1 rounded-full border-2 border-yellow-600 shadow flex items-center gap-1">
+                    <span>👑</span> <span>とけいハカセ にんてい</span> <span>👑</span>
+                </div>
+
+                <div class="pt-2">
+                    <h2 class="text-2xl sm:text-3xl font-black text-amber-900 tracking-widest border-b-2 border-amber-300 pb-1 inline-block px-4">
+                        ひょうしょうじょう
+                    </h2>
+                </div>
+
+                <!-- お名前入力機能 -->
+                <div class="space-y-0.5">
+                    <input id="cert-name-input" type="text" value="とけいハカセ" placeholder="なまえを いれてね" oninput="updateUsername(this.value)" class="text-center font-black text-lg sm:text-xl text-amber-900 bg-amber-100/60 border-b-2 border-amber-500 rounded px-2 py-0.5 focus:outline-none focus:bg-white w-3/4">
+                    <p class="text-[11px] font-bold text-amber-700">どの（名前をタップして書きかえられるよ）</p>
+                </div>
+
+                <p class="text-xs sm:text-sm font-bold text-slate-800 leading-relaxed px-2 text-left sm:text-center">
+                    きみは 「めざせ！とけいハカセ」 の 10きゅう から 1きゅう までの すべての とけいけんてい に みごと ごうかく しました！<br>
+                    とけいを よむ めいじん として ここに ひょうしょう します。
+                </p>
+
+                <!-- 賞状のスタンプと日付 -->
+                <div class="flex justify-between items-end pt-2 px-2 text-left">
+                    <div class="text-[11px] font-bold text-amber-800" id="cert-date-text">
+                        2026ねん --がつ --にち
+                    </div>
+                    <div class="w-12 h-12 rounded-full border-2 border-rose-500 flex items-center justify-center text-rose-600 font-black text-[10px] transform -rotate-12 bg-rose-50 shadow-sm">
+                        かんせい<br>ごうかく
+                    </div>
+                </div>
+            </div>
+
+            <!-- ボタンエリア -->
+            <div class="flex gap-2 w-full no-print">
+                <button onclick="showStartScreen()" class="flex-1 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-center text-xs sm:text-sm">
+                    メニューへ
+                </button>
+                <button onclick="window.print()" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black text-xs sm:text-sm rounded-xl shadow-md border-b-4 border-amber-700 flex items-center justify-center gap-1">
+                    <span>🖨️</span> <span>いんさつ / ほぞん</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 5. データリセット確認モーダル -->
+        <div id="modal-reset" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white border-4 border-rose-300 rounded-3xl p-5 max-w-sm w-full text-center space-y-4 shadow-2xl animate-in fade-in zoom-in duration-200">
+                <div class="text-4xl">⚠️</div>
+                <div class="space-y-1">
+                    <h3 class="text-lg font-black text-slate-800">ほんとうに リセットする？</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed font-bold">
+                        これまで クリアした「きゅう」の きろく や「ごほうび とけい」が ぜんぶ きえます。
+                    </p>
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button onclick="closeResetModal()" class="flex-1 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-sm rounded-xl">
+                        やめる
+                    </button>
+                    <button onclick="resetProgress()" class="flex-1 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-black text-sm rounded-xl shadow-md border-b-4 border-rose-700">
+                        リセットする！
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- 級（全10級）定義 ---
+        const GRADES = [
+            { level: 10, title: "10きゅう", desc: "〇じ ちょうど", snap: 30 },
+            { level: 9,  title: "9きゅう",  desc: "〇じ / 〇じはん", snap: 30 },
+            { level: 8,  title: "8きゅう",  desc: "15ふん たんい", snap: 15 },
+            { level: 7,  title: "7きゅう",  desc: "5ふん たんい", snap: 5 },
+            { level: 6,  title: "6きゅう",  desc: "1ふん たんい", snap: 1 },
+            { level: 5,  title: "5きゅう",  desc: "〇ふんご", snap: 1 },
+            { level: 4,  title: "4きゅう",  desc: "〇ふんまえ", snap: 1 },
+            { level: 3,  title: "3きゅう",  desc: "じかんの けいさん", snap: 1 },
+            { level: 2,  title: "2きゅう",  desc: "はりあわせ マスター", snap: 1 },
+            { level: 1,  title: "1きゅう",  desc: "とけいハカセ (そうごう)", snap: 1 }
+        ];
+
+        // スキン（ごほうび）全10種定義
+        const SKINS = [
+            { id: 'normal',  name: '標準',     icon: '⏰', class: 'skin-normal',  reqGrade: 10, desc: 'いつもの とけい' },
+            { id: 'lion',    name: 'ライオン', icon: '🦁', class: 'skin-lion',    reqGrade: 10, desc: '10きゅう ごうかく' },
+            { id: 'penguin', name: 'ペンギン', icon: '🐧', class: 'skin-penguin', reqGrade: 9,  desc: '9きゅう ごうかく' },
+            { id: 'robot',   name: 'ロボット', icon: '🤖', class: 'skin-robot',   reqGrade: 8,  desc: '8きゅう ごうかく' },
+            { id: 'dino',    name: '恐竜',     icon: '🦖', class: 'skin-dino',    reqGrade: 7,  desc: '7きゅう ごうかく' },
+            { id: 'space',   name: 'うちゅう', icon: '🚀', class: 'skin-space',   reqGrade: 6,  desc: '6きゅう ごうかく' },
+            { id: 'cat',     name: 'ネコ',     icon: '🐱', class: 'skin-cat',     reqGrade: 5,  desc: '5きゅう ごうかく' },
+            { id: 'wizard',  name: 'まほう',   icon: '🧙', class: 'skin-wizard',  reqGrade: 4,  desc: '4きゅう ごうかく' },
+            { id: 'diamond', name: 'ダイヤ',   icon: '💎', class: 'skin-diamond', reqGrade: 3,  desc: '3きゅう ごうかく' },
+            { id: 'gold',    name: 'おうかん', icon: '👑', class: 'skin-gold',    reqGrade: 2,  desc: '2きゅう ごうかく' }
+        ];
+
+        // --- アプリ状態管理 (State) ---
+        let state = {
+            username: localStorage.getItem('clock_username') || 'とけいハカセ',
+            selectedGrade: 10,
+            selectedSkin: 'normal',
+            passedGrades: JSON.parse(localStorage.getItem('clock_passed_grades') || '[]'),
+            unlockedSkins: JSON.parse(localStorage.getItem('clock_unlocked_skins') || '["normal"]'),
+            currentQuestionIdx: 0,
+            questions: [],
+            score: 0,
+            timer: null,
+            timeLeft: 180, // 3分
+            userAnswers: [], // { question, retries }
+            keypadInput: "",
+            dragMinutes: 0,
+            dragHours: 12,
+            isDraggingHand: false
+        };
+
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playSound(type) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new AudioCtx();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'correct') {
+                    // ピンポン（正解音）
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(659.25, now); // E5
+                    osc.frequency.setValueAtTime(880.00, now + 0.1); // A5
+                    
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                } else if (type === 'wrong') {
+                    // ブーブー（不正解音）
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.setValueAtTime(140, now + 0.12);
+
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'fanfare') {
+                    // ファンファーレ（合格・賞状獲得音）
+                    const notes = [
+                        { f: 523.25, t: 0 },    // C5
+                        { f: 659.25, t: 0.1 },  // E5
+                        { f: 783.99, t: 0.2 },  // G5
+                        { f: 1046.50, t: 0.35 } // C6
+                    ];
+                    notes.forEach(n => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        const start = now + n.t;
+                        const duration = n.t === 0.35 ? 0.5 : 0.12;
+
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(n.f, start);
+
+                        gain.gain.setValueAtTime(0.25, start);
+                        gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(start);
+                        osc.stop(start + duration);
+                    });
+                }
+            } catch (e) {
+                console.warn('Audio playSound failed:', e);
+            }
         }
-      }
-    }
-  }
 
-  function pressKey(num) {
-    if (activeInput === 'h') {
-      if (inputH.length < 2) {
-        let val = inputH + num;
-        if (parseInt(val) <= 12) {
-          inputH = val;
-          if (parseInt(val) >= 2 || val.length === 2) activeInput = 'm';
+        window.onload = () => {
+            initUsernameUI();
+            renderGradeSelector();
+            renderSkinSelector();
+            setupClockEvents();
+            applySkin(state.selectedSkin);
+            checkCertificateButtonVisibility();
+        };
+
+        function initUsernameUI() {
+            const startInput = document.getElementById('username-input');
+            const certInput = document.getElementById('cert-name-input');
+            if (startInput) startInput.value = state.username;
+            if (certInput) certInput.value = state.username;
         }
-      }
-    } else {
-      if (inputM.length < 2) {
-        let val = inputM + num;
-        if (parseInt(val) <= 59) inputM = val;
-      }
-    }
-    updateKeyDisplay();
-  }
 
-  function generateChoices(correctH, correctM) {
-    let set = new Set();
-    set.add(`${correctH}-${correctM}`);
-    let choices = [{ h: correctH, m: correctM }];
-    while (choices.length < 4) {
-      let h = Math.floor(Math.random() * 12) + 1;
-      let m = (currentLevel === 10) ? (Math.random()<0.5?0:30) : Math.floor(Math.random() * 12) * 5;
-      if (!set.has(`${h}-${m}`)) {
-        set.add(`${h}-${m}`);
-        choices.push({ h: h, m: m });
-      }
-    }
-    return choices.sort(() => Math.random() - 0.5);
-  }
+        function updateUsername(val) {
+            state.username = val;
+            const saveVal = val.trim() || 'とけいハカセ';
+            localStorage.setItem('clock_username', saveVal);
 
-  function checkChoiceAnswer(h, m) {
-    if (h === targetHour && m === targetMinute) handleCorrect();
-    else handleWrong();
-  }
-
-  function checkDragAnswer() {
-    if (userHour === targetHour && userMinute === targetMinute) handleCorrect();
-    else handleWrong();
-  }
-
-  function handleCorrect() {
-    document.getElementById('feedback').style.color = '#2ECC71';
-    document.getElementById('feedback').textContent = '⭕ せいかい！';
-    setTimeout(() => { currentQuestionIndex++; nextQuestion(); }, 1000);
-  }
-
-  function handleWrong() {
-    currentMistakeCount++;
-    if (currentMistakeCount === 1) mistakes.push(questions[currentQuestionIndex]);
-    document.getElementById('feedback').style.color = '#E74C3C';
-    document.getElementById('feedback').textContent = '❌ ちがうよ！もう一かい！';
-    if (questions[currentQuestionIndex].type === 'keypad') clearKeypadInput();
-  }
-
-  function setupClockDrag() {
-    const svg = document.getElementById('clock-svg');
-    let isDragging = false;
-    const handleMove = (e) => {
-      if (!isDragging || questions[currentQuestionIndex]?.type !== 'drag') return;
-      const rect = svg.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      const x = clientX - rect.left - rect.width / 2;
-      const y = clientY - rect.top - rect.height / 2;
-      let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
-      if (angle < 0) angle += 360;
-      let step = (currentLevel >= 8) ? 1 : 5;
-      let m = Math.round((angle / 360) * 60 / step) * step;
-      if (m === 60) m = 0;
-      userMinute = m; userHour = targetHour; 
-      drawClock(userHour, userMinute);
-    };
-    svg.addEventListener('mousedown', () => isDragging = true);
-    svg.addEventListener('touchstart', () => isDragging = true);
-    window.addEventListener('mouseup', () => isDragging = false);
-    window.addEventListener('touchend', () => isDragging = false);
-    svg.addEventListener('mousemove', handleMove);
-    svg.addEventListener('touchmove', handleMove);
-  }
-
-  function finishQuiz() {
-    clearInterval(timerInterval);
-    showScreen('screen-result');
-    const score = 10 - mistakes.length;
-    const isPassed = score >= 8;
-    document.getElementById('result-title').textContent = isPassed ? '🎉 ごうかく！' : '😭 ざんねん…';
-    document.getElementById('result-score').textContent = `10もんちゅう ${score}もん せいかい！`;
-    const unlockedMsg = document.getElementById('unlocked-msg');
-    unlockedMsg.textContent = '';
-    if (isPassed) {
-      SKINS.forEach(s => {
-        if (s.level === currentLevel && !unlockedSkins.includes(s.id)) {
-          unlockedSkins.push(s.id);
-          unlockedMsg.textContent = `🎁 新しいとけい「${s.name}」がつかえるようになったよ！`;
+            // スタート画面と賞状画面のインプットを同期
+            const startInput = document.getElementById('username-input');
+            const certInput = document.getElementById('cert-name-input');
+            if (startInput && startInput !== document.activeElement) startInput.value = val;
+            if (certInput && certInput !== document.activeElement) certInput.value = val;
         }
-      });
-      renderSkinSelector();
-    }
-    const reviewArea = document.getElementById('review-area');
-    const reviewList = document.getElementById('review-list');
-    if (mistakes.length > 0) {
-      reviewArea.style.display = 'block';
-      reviewList.innerHTML = mistakes.map((m, i) => `<div>問題 ${i+1}: <b>${m.ansStr || (m.hour + '時 ' + m.minute + '分')}</b></div>`).join('');
-    } else {
-      reviewArea.style.display = 'none';
-    }
-  }
-</script>
 
+        function checkCertificateButtonVisibility() {
+            const certBtn = document.getElementById('btn-view-certificate');
+            // 全10級すべてクリアしている場合のみ賞状ボタンを表示
+            const hasPassedAll = GRADES.every(g => state.passedGrades.includes(g.level));
+            if (hasPassedAll) {
+                certBtn.classList.remove('hidden');
+            } else {
+                certBtn.classList.add('hidden');
+            }
+        }
+
+        // 時計盤の描画 (数字と目盛り)
+        function renderDial() {
+            const dialG = document.getElementById('clock-dial');
+            dialG.innerHTML = '';
+
+            // 目盛り (60個)
+            for (let i = 0; i < 60; i++) {
+                const angle = (i * 6) * Math.PI / 180;
+                const isMajor = i % 5 === 0;
+                const r1 = isMajor ? 80 : 85;
+                const r2 = 90;
+                const x1 = 100 + r1 * Math.sin(angle);
+                const y1 = 100 - r1 * Math.cos(angle);
+                const x2 = 100 + r2 * Math.sin(angle);
+                const y2 = 100 - r2 * Math.cos(angle);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', isMajor ? 'var(--dial-text)' : 'var(--bg-outer)');
+                line.setAttribute('stroke-width', isMajor ? '2.5' : '1');
+                line.setAttribute('opacity', isMajor ? '0.9' : '0.4');
+                dialG.appendChild(line);
+            }
+
+            // 数字 (1〜12)
+            for (let i = 1; i <= 12; i++) {
+                const angle = (i * 30) * Math.PI / 180;
+                const x = 100 + 68 * Math.sin(angle);
+                const y = 100 - 68 * Math.cos(angle) + 4;
+
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', x);
+                text.setAttribute('y', y);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('font-size', '16');
+                text.setAttribute('font-weight', '900');
+                text.setAttribute('fill', 'var(--dial-text)');
+                text.textContent = i;
+                dialG.appendChild(text);
+            }
+        }
+
+        // スキンに応じたモチーフイラストSVGを生成
+        function renderSkinIllustration(skinId) {
+            const container = document.getElementById('clock-illustration');
+            container.innerHTML = '';
+
+            if (skinId === 'lion') {
+                container.innerHTML = `
+                    <circle cx="100" cy="100" r="42" fill="#f97316" opacity="0.3" />
+                    <circle cx="100" cy="100" r="38" fill="#fdba74" />
+                    <circle cx="75" cy="72" r="10" fill="#f97316" /><circle cx="125" cy="72" r="10" fill="#f97316" />
+                    <circle cx="100" cy="102" r="28" fill="#fef08a" />
+                    <circle cx="90" cy="95" r="3" fill="#7c2d12" /><circle cx="110" cy="95" r="3" fill="#7c2d12" />
+                    <polygon points="100,100 95,106 105,106" fill="#7c2d12" />
+                `;
+            } else if (skinId === 'penguin') {
+                container.innerHTML = `
+                    <circle cx="100" cy="100" r="36" fill="#0284c7" />
+                    <ellipse cx="100" cy="105" rx="24" ry="26" fill="#ffffff" />
+                    <circle cx="91" cy="90" r="3.5" fill="#0c4a6e" /><circle cx="109" cy="90" r="3.5" fill="#0c4a6e" />
+                    <polygon points="100,94 94,102 106,102" fill="#ea580c" />
+                `;
+            } else if (skinId === 'robot') {
+                container.innerHTML = `
+                    <circle cx="100" cy="100" r="38" fill="#cbd5e1" opacity="0.5" />
+                    <rect x="74" y="75" width="52" height="42" rx="8" fill="#64748b" stroke="#334155" stroke-width="2" />
+                    <line x1="100" y1="75" x2="100" y2="65" stroke="#334155" stroke-width="3" />
+                    <circle cx="100" cy="63" r="5" fill="#0284c7" />
+                    <circle cx="88" cy="90" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5" />
+                    <circle cx="112" cy="90" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5" />
+                `;
+            } else if (skinId === 'dino') {
+                container.innerHTML = `
+                    <circle cx="100" cy="100" r="36" fill="#86efac" opacity="0.6" />
+                    <path d="M 80 115 Q 75 75 110 75 Q 125 75 125 90 Q 115 105 95 115 Z" fill="#22c55e" />
+                    <circle cx="102" cy="83" r="3" fill="#14532d" />
+                    <polygon points="75,80 82,85 78,92" fill="#eab308" />
+                `;
+            } else if (skinId === 'space') {
+                container.innerHTML = `
+                    <circle cx="70" cy="70" r="2" fill="#fef08a" class="sparkle-anim" />
+                    <circle cx="130" cy="75" r="1.5" fill="#fef08a" />
+                    <path d="M 120 65 A 12 12 0 0 1 130 85 A 15 15 0 1 0 120 65 Z" fill="#fef08a" opacity="0.8" />
+                    <g transform="translate(82, 82) rotate(-30)">
+                        <path d="M 15 0 Q 30 10 30 30 L 0 30 Q 0 10 15 0 Z" fill="#f43f5e" />
+                        <rect x="5" y="25" width="20" height="20" fill="#e2e8f0" />
+                        <circle cx="15" cy="35" r="4" fill="#38bdf8" />
+                    </g>
+                `;
+            } else if (skinId === 'cat') {
+                container.innerHTML = `
+                    <polygon points="72,70 82,90 65,88" fill="#ec4899" />
+                    <polygon points="128,70 118,90 135,88" fill="#ec4899" />
+                    <circle cx="100" cy="102" r="32" fill="#fbcfe8" />
+                    <circle cx="88" cy="96" r="3.5" fill="#831843" /><circle cx="112" cy="96" r="3.5" fill="#831843" />
+                    <polygon points="100,102 96,106 104,106" fill="#db2777" />
+                `;
+            } else if (skinId === 'wizard') {
+                container.innerHTML = `
+                    <polygon points="100,60 75,95 125,95" fill="#7c3aed" />
+                    <ellipse cx="100" cy="95" rx="30" ry="6" fill="#6d28d9" />
+                    <circle cx="100" cy="78" r="3" fill="#fef08a" class="sparkle-anim" />
+                `;
+            } else if (skinId === 'diamond') {
+                container.innerHTML = `
+                    <polygon points="100,68 122,85 100,120 78,85" fill="#38bdf8" opacity="0.8" stroke="#0284c7" stroke-width="2" />
+                    <polygon points="100,68 122,85 100,85" fill="#7dd3fc" />
+                `;
+            } else if (skinId === 'gold') {
+                container.innerHTML = `
+                    <circle cx="100" cy="100" r="38" fill="#fef3c7" opacity="0.6" stroke="#f59e0b" stroke-width="1" />
+                    <g transform="translate(76, 75)">
+                        <polygon points="0,35 5,10 18,22 24,5 30,22 43,10 48,35" fill="#fbbf24" stroke="#b45309" stroke-width="2" />
+                        <rect x="0" y="35" width="48" height="8" fill="#f59e0b" stroke="#b45309" stroke-width="1.5" />
+                        <circle cx="24" cy="5" r="3.5" fill="#3b82f6" />
+                    </g>
+                `;
+            } else {
+                container.innerHTML = `<circle cx="100" cy="100" r="30" fill="#f1f5f9" opacity="0.5" />`;
+            }
+        }
+        // 級選択 UI 生成（どの級からでも選べるように修正）
+        function renderGradeSelector() {
+            const container = document.getElementById('grade-selector');
+            container.innerHTML = '';
+
+            GRADES.forEach(g => {
+                const isPassed = state.passedGrades.includes(g.level);
+                const isSelected = state.selectedGrade === g.level;
+
+                const btn = document.createElement('button');
+                btn.className = `p-2 rounded-xl border-2 font-bold flex flex-col items-center justify-center transition ${
+                    isSelected 
+                        ? 'bg-amber-500 border-amber-600 text-white shadow-md scale-105' 
+                        : isPassed
+                            ? 'bg-emerald-50 border-emerald-300 text-slate-800 hover:bg-emerald-100'
+                            : 'bg-white border-amber-200 text-slate-700 hover:bg-amber-50'
+                }`;
+                btn.onclick = () => {
+                    state.selectedGrade = g.level;
+                    renderGradeSelector();
+                };
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-1">
+                        ${isPassed ? '<span class="text-xs">✅</span>' : ''}
+                        <span class="text-sm font-black">${g.title}</span>
+                    </div>
+                    <span class="text-[10px] ${isSelected ? 'text-amber-100' : isPassed ? 'text-emerald-700' : 'text-slate-400'}">
+                        ${isPassed ? 'クリア！' : g.desc}
+                    </span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        // スキン選択 UI 生成
+        function renderSkinSelector() {
+            const container = document.getElementById('skin-selector');
+            const badge = document.getElementById('skin-count-badge');
+            container.innerHTML = '';
+
+            let unlockedCount = 0;
+
+            SKINS.forEach(s => {
+                const isUnlocked = state.unlockedSkins.includes(s.id);
+                if (isUnlocked) unlockedCount++;
+
+                const isSelected = state.selectedSkin === s.id;
+
+                const btn = document.createElement('button');
+                btn.className = `p-1.5 rounded-xl font-bold text-xs flex flex-col items-center justify-center border-2 transition ${
+                    !isUnlocked 
+                        ? 'bg-slate-200 border-slate-300 text-slate-400 opacity-60 cursor-not-allowed' 
+                        : isSelected 
+                            ? 'bg-amber-400 border-amber-600 text-slate-900 shadow-md ring-2 ring-amber-300 scale-105' 
+                            : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100'
+                }`;
+                btn.disabled = !isUnlocked;
+                btn.onclick = () => {
+                    state.selectedSkin = s.id;
+                    applySkin(s.id);
+                    renderSkinSelector();
+                };
+
+                btn.innerHTML = `
+                    <span class="text-lg">${isUnlocked ? s.icon : '🔒'}</span>
+                    <span class="text-[9px] font-bold leading-tight mt-0.5">${s.name}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            badge.textContent = `${unlockedCount}/${SKINS.length} かいほう`;
+        }
+
+        function applySkin(skinId) {
+            const clockBox = document.getElementById('clock-container');
+            const skin = SKINS.find(s => s.id === skinId) || SKINS[0];
+            clockBox.className = `relative w-52 h-52 sm:w-60 sm:h-60 rounded-full shadow-lg border-8 flex items-center justify-center transition-colors duration-300 ${skin.class}`;
+            renderSkinIllustration(skinId);
+            renderDial();
+        }
+
+        function updateClockHands(hours, minutes) {
+            const hourAngle = (hours % 12 + minutes / 60) * 30;
+            const minuteAngle = minutes * 6;
+            document.getElementById('hour-hand').setAttribute('transform', `rotate(${hourAngle} 100 100)`);
+            document.getElementById('minute-hand').setAttribute('transform', `rotate(${minuteAngle} 100 100)`);
+        }
+
+        function setupClockEvents() {
+            const svg = document.getElementById('clock-svg');
+
+            const handleMove = (e) => {
+                if (!state.isDraggingHand) return;
+                const rect = svg.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                const dx = clientX - (rect.left + rect.width / 2);
+                const dy = clientY - (rect.top + rect.height / 2);
+
+                let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+                if (angle < 0) angle += 360;
+
+                let minutes = Math.round(angle / 6) % 60;
+                const currentGradeObj = GRADES.find(g => g.level === state.selectedGrade);
+                const snap = currentGradeObj ? currentGradeObj.snap : 1;
+                minutes = Math.round(minutes / snap) * snap % 60;
+
+                state.dragMinutes = minutes;
+                updateClockHands(state.dragHours, state.dragMinutes);
+            };
+
+            const startDrag = (e) => {
+                const q = state.questions[state.currentQuestionIdx];
+                if (q && q.type === 'drag') {
+                    state.isDraggingHand = true;
+                    handleMove(e);
+                }
+            };
+
+            const stopDrag = () => {
+                state.isDraggingHand = false;
+            };
+
+            svg.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', handleMove);
+            window.addEventListener('mouseup', stopDrag);
+
+            svg.addEventListener('touchstart', startDrag);
+            window.addEventListener('touchmove', handleMove);
+            window.addEventListener('touchend', stopDrag);
+        }
+
+        function generateQuestions(grade) {
+            const questions = [];
+            const types = ['choice', 'keypad', 'drag'];
+
+            for (let i = 0; i < 10; i++) {
+                let h, m, type, correctH, correctM, text;
+
+                if (grade === 10) {
+                    // 10級: 〇じ ちょうど
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = 0;
+                    type = (i % 2 === 0) ? 'choice' : 'drag';
+                } else if (grade === 9) {
+                    // 9級: 〇じ / 〇じはん
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.random() < 0.5 ? 0 : 30;
+                    type = types[i % 3];
+                } else if (grade === 8) {
+                    // 8級: 15分単位
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = [0, 15, 30, 45][Math.floor(Math.random() * 4)];
+                    type = types[i % 3];
+                } else if (grade === 7) {
+                    // 7級: 5分単位
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.floor(Math.random() * 12) * 5;
+                    type = types[i % 3];
+                } else if (grade === 6) {
+                    // 6級: 1分単位
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.floor(Math.random() * 60);
+                    type = types[i % 3];
+                } else if (grade === 5) {
+                    // 5級: 〇分後
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.floor(Math.random() * 12) * 5;
+                    const diff = (Math.floor(Math.random() * 5) + 1) * 5;
+                    let targetM = m + diff;
+                    let targetH = h;
+                    if (targetM >= 60) { targetM -= 60; targetH = (targetH % 12) + 1; }
+                    correctH = targetH;
+                    correctM = targetM;
+                    type = (i % 2 === 0) ? 'choice' : 'keypad';
+                    text = `${h}じ ${m === 0 ? '0' : m}ふん の ${diff}ふんご は？`;
+                } else if (grade === 4) {
+                    // 4級: 〇分前
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.floor(Math.random() * 12) * 5;
+                    const diff = (Math.floor(Math.random() * 5) + 1) * 5;
+                    let targetM = m - diff;
+                    let targetH = h;
+                    if (targetM < 0) { targetM += 60; targetH = targetH - 1 || 12; }
+                    correctH = targetH;
+                    correctM = targetM;
+                    type = (i % 2 === 0) ? 'choice' : 'keypad';
+                    text = `${h}じ ${m === 0 ? '0' : m}ふん の ${diff}ふんまえ は？`;
+                } else if (grade === 3) {
+                    // 3級: 時間の計算
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.floor(Math.random() * 4) * 15;
+                    const addHours = Math.floor(Math.random() * 2) + 1;
+                    const addMins = (Math.floor(Math.random() * 3) + 1) * 10;
+                    const isAfter = Math.random() < 0.5;
+
+                    let totalMin = (h * 60 + m) + (isAfter ? 1 : -1) * (addHours * 60 + addMins);
+                    while (totalMin <= 0) totalMin += 12 * 60;
+                    let resH = Math.floor(totalMin / 60) % 12 || 12;
+                    let resM = totalMin % 60;
+
+                    correctH = resH;
+                    correctM = resM;
+                    type = (i % 2 === 0) ? 'choice' : 'keypad';
+                    text = `${h}じ ${m === 0 ? '0' : m}ふん の ${addHours}じかん${addMins}ふん${isAfter ? 'ご' : 'まえ'} は？`;
+                } else if (grade === 2) {
+                    // 2級: 針合わせマスター
+                    h = Math.floor(Math.random() * 12) + 1;
+                    m = Math.floor(Math.random() * 60);
+                    type = 'drag';
+                } else {
+                    // 1級: とけいハカセ（総合問題）
+                    const subGrade = Math.floor(Math.random() * 9) + 2;
+                    const temp = generateQuestions(subGrade);
+                    const qItem = temp[Math.floor(Math.random() * temp.length)];
+                    questions.push(qItem);
+                    continue;
+                }
+
+                if (!correctH) correctH = h;
+                if (correctM === undefined) correctM = m;
+
+                questions.push({
+                    h, m, correctH, correctM,
+                    type,
+                    text: text || (type === 'drag' 
+                        ? `とけいの はりを 「${correctH}じ ${correctM === 0 ? '0' : correctM}ふん」 にあわせてね！` 
+                        : "とけいは なんじ なんぷん かな？"),
+                    userRetries: 0
+                });
+            }
+
+            return questions;
+        }
+
+        function startExam() {
+            state.questions = generateQuestions(state.selectedGrade);
+            state.currentQuestionIdx = 0;
+            state.score = 0;
+            state.userAnswers = [];
+            state.timeLeft = 180;
+
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-certificate').classList.add('hidden');
+            document.getElementById('screen-exam').classList.remove('hidden');
+            document.getElementById('screen-exam').classList.add('flex');
+
+            document.getElementById('current-grade-badge').textContent = `${state.selectedGrade}きゅう`;
+
+            startTimer();
+            loadQuestion();
+        }
+
+        function startTimer() {
+            clearInterval(state.timer);
+            updateTimerDisplay();
+
+            state.timer = setInterval(() => {
+                state.timeLeft--;
+                updateTimerDisplay();
+
+                if (state.timeLeft <= 0) {
+                    clearInterval(state.timer);
+                    finishExam();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const min = Math.floor(state.timeLeft / 60).toString().padStart(2, '0');
+            const sec = (state.timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer-text').textContent = `${min}:${sec}`;
+        }
+
+        function loadQuestion() {
+            const q = state.questions[state.currentQuestionIdx];
+            document.getElementById('question-progress').textContent = `だい ${state.currentQuestionIdx + 1} / 10 もん`;
+            document.getElementById('question-text').textContent = q.text;
+            document.getElementById('feedback-msg').classList.add('opacity-0');
+
+            document.getElementById('input-choice').classList.add('hidden');
+            document.getElementById('input-keypad').classList.add('hidden');
+            document.getElementById('input-drag').classList.add('hidden');
+
+            if (q.type === 'drag') {
+                state.dragHours = q.correctH;
+                state.dragMinutes = (q.correctM + 30) % 60;
+                updateClockHands(state.dragHours, state.dragMinutes);
+                document.getElementById('input-drag').classList.remove('hidden');
+                document.getElementById('input-drag').classList.add('flex');
+            } else {
+                updateClockHands(q.h, q.m);
+
+                if (q.type === 'choice') {
+                    renderChoiceOptions(q);
+                    document.getElementById('input-choice').classList.remove('hidden');
+                } else if (q.type === 'keypad') {
+                    state.keypadInput = "";
+                    updateKeypadDisplay();
+                    document.getElementById('input-keypad').classList.remove('hidden');
+                    document.getElementById('input-keypad').classList.add('flex');
+                }
+            }
+        }
+
+        function renderChoiceOptions(q) {
+            const container = document.getElementById('input-choice');
+            container.innerHTML = '';
+
+            const options = [];
+            const correctText = `${q.correctH}じ ${q.correctM}ふん`;
+            options.push(correctText);
+
+            while (options.length < 4) {
+                let dummyH = Math.floor(Math.random() * 12) + 1;
+                let dummyM = (state.selectedGrade <= 9) 
+                    ? Math.floor(Math.random() * 12) * 5 
+                    : Math.floor(Math.random() * 60);
+                let dummyText = `${dummyH}じ ${dummyM}ふん`;
+                if (!options.includes(dummyText)) {
+                    options.push(dummyText);
+                }
+            }
+
+            options.sort(() => Math.random() - 0.5);
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "py-2.5 bg-amber-100 hover:bg-amber-200 active:bg-amber-300 text-amber-900 font-bold rounded-xl border border-amber-300 text-xs sm:text-sm shadow-sm";
+                btn.textContent = opt;
+                btn.onclick = () => validateAnswer(opt === correctText);
+                container.appendChild(btn);
+            });
+        }
+
+        function pressKey(num) {
+            if (state.keypadInput.length < 4) {
+                state.keypadInput += num;
+                updateKeypadDisplay();
+            }
+        }
+
+        function clearKeypad() {
+            state.keypadInput = "";
+            updateKeypadDisplay();
+        }
+
+        function updateKeypadDisplay() {
+            const str = state.keypadInput.padStart(4, '-');
+            const hStr = str.substring(0, 2);
+            const mStr = str.substring(2, 4);
+            document.getElementById('keypad-display').textContent = `${hStr}:${mStr}`;
+        }
+
+        function submitKeypad() {
+            const q = state.questions[state.currentQuestionIdx];
+            if (state.keypadInput.length < 3) return;
+
+            let hInput, mInput;
+            if (state.keypadInput.length === 3) {
+                hInput = parseInt(state.keypadInput.substring(0, 1));
+                mInput = parseInt(state.keypadInput.substring(1, 3));
+            } else {
+                hInput = parseInt(state.keypadInput.substring(0, 2));
+                mInput = parseInt(state.keypadInput.substring(2, 4));
+            }
+
+            const isCorrect = (hInput === q.correctH && mInput === q.correctM);
+            validateAnswer(isCorrect);
+        }
+
+        function submitDragAnswer() {
+            const q = state.questions[state.currentQuestionIdx];
+            const isCorrect = (state.dragMinutes === q.correctM);
+            validateAnswer(isCorrect);
+        }
+
+        function validateAnswer(isCorrect) {
+            const q = state.questions[state.currentQuestionIdx];
+
+            if (isCorrect) {
+                playSound('correct');
+                if (q.userRetries === 0) {
+                    state.score++;
+                }
+                state.userAnswers.push({
+                    question: q,
+                    retries: q.userRetries
+                });
+
+                state.currentQuestionIdx++;
+                if (state.currentQuestionIdx < 10) {
+                    loadQuestion();
+                } else {
+                    finishExam();
+                }
+            } else {
+                playSound('wrong');
+                q.userRetries++;
+                const fb = document.getElementById('feedback-msg');
+                fb.classList.remove('opacity-0');
+                
+                const clockBox = document.getElementById('clock-container');
+                clockBox.classList.add('shake');
+                setTimeout(() => clockBox.classList.remove('shake'), 300);
+
+                if (q.type === 'keypad') clearKeypad();
+            }
+        }
+
+        function finishExam() {
+            clearInterval(state.timer);
+
+            document.getElementById('screen-exam').classList.add('hidden');
+            document.getElementById('screen-exam').classList.remove('flex');
+            document.getElementById('screen-result').classList.remove('hidden');
+            document.getElementById('screen-result').classList.add('flex');
+
+            const isPassed = state.score >= 8;
+            const titleEl = document.getElementById('result-title');
+            const scoreEl = document.getElementById('result-score');
+            const unlockNotif = document.getElementById('unlock-notification');
+            const allClearBanner = document.getElementById('all-clear-banner');
+
+            scoreEl.textContent = `10もんちゅう ${state.score}もん せいかい！`;
+
+            if (isPassed) {
+                playSound('fanfare');
+                titleEl.textContent = `🎉 ${state.selectedGrade}きゅう ごうかく！`;
+                titleEl.className = "text-2xl sm:text-3xl font-black text-emerald-600";
+
+                // クリアした級を記録
+                if (!state.passedGrades.includes(state.selectedGrade)) {
+                    state.passedGrades.push(state.selectedGrade);
+                    localStorage.setItem('clock_passed_grades', JSON.stringify(state.passedGrades));
+                }
+
+                // 全10級クリア判定！
+                const hasPassedAll = GRADES.every(g => state.passedGrades.includes(g.level));
+                if (hasPassedAll) {
+                    allClearBanner.classList.remove('hidden');
+                    checkCertificateButtonVisibility();
+                } else {
+                    allClearBanner.classList.add('hidden');
+                }
+
+                // ごほうびスキン解放判定
+                const newlyUnlockedSkin = SKINS.find(s => s.reqGrade === state.selectedGrade && !state.unlockedSkins.includes(s.id));
+                if (newlyUnlockedSkin) {
+                    state.unlockedSkins.push(newlyUnlockedSkin.id);
+                    localStorage.setItem('clock_unlocked_skins', JSON.stringify(state.unlockedSkins));
+
+                    unlockNotif.classList.remove('hidden');
+                    document.getElementById('unlocked-skin-icon').textContent = newlyUnlockedSkin.icon;
+                    document.getElementById('unlocked-skin-title').textContent = `「${newlyUnlockedSkin.name}とけい」`;
+                } else {
+                    unlockNotif.classList.add('hidden');
+                }
+
+            } else {
+                playSound('wrong');
+                titleEl.textContent = `💪 ざんねん！あと${8 - state.score}もん！`;
+                titleEl.className = "text-2xl sm:text-3xl font-black text-rose-600";
+                unlockNotif.classList.add('hidden');
+                allClearBanner.classList.add('hidden');
+            }
+
+            renderReviewList();
+            renderGradeSelector();
+            renderSkinSelector();
+        }
+
+        function showCertificateScreen() {
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-certificate').classList.remove('hidden');
+            document.getElementById('screen-certificate').classList.add('flex');
+
+            // 今日の日付をセット
+            const today = new Date();
+            document.getElementById('cert-date-text').textContent = `${today.getFullYear()}ねん ${today.getMonth() + 1}がつ ${today.getDate()}にち`;
+
+            playSound('fanfare');
+            createConfetti();
+        }
+
+        // 紙ふぶきエフェクト生成
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            const colors = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
+
+            for (let i = 0; i < 40; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = `${Math.random() * 2.5}s`;
+                piece.style.animationDuration = `${2.5 + Math.random() * 2}s`;
+                container.appendChild(piece);
+            }
+        }
+
+        function renderReviewList() {
+            const listContainer = document.getElementById('review-list');
+            listContainer.innerHTML = '';
+
+            const wrongItems = state.userAnswers.filter(a => a.retries > 0);
+
+            if (wrongItems.length === 0) {
+                listContainer.innerHTML = `<div class="text-emerald-600 font-bold text-center py-2">✨ まちがいナシ！ぜんもん 1かいで せいかいできたよ！</div>`;
+                return;
+            }
+
+            wrongItems.forEach((item) => {
+                const q = item.question;
+                const div = document.createElement('div');
+                div.className = "p-1.5 bg-white rounded-lg border border-rose-100 flex justify-between items-center text-xs";
+                div.innerHTML = `
+                    <div>
+                        <span class="font-bold text-rose-500">❌ ${q.text}</span>
+                    </div>
+                    <div class="font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded whitespace-nowrap">
+                        こたえ: ${q.correctH}じ ${q.correctM}ふん
+                    </div>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+
+        function showStartScreen() {
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-certificate').classList.add('hidden');
+            document.getElementById('screen-start').classList.remove('hidden');
+            checkCertificateButtonVisibility();
+        }
+
+        // --- リセット機能 ---
+        function openResetModal() {
+            document.getElementById('modal-reset').classList.remove('hidden');
+            document.getElementById('modal-reset').classList.add('flex');
+        }
+
+        function closeResetModal() {
+            document.getElementById('modal-reset').classList.add('hidden');
+            document.getElementById('modal-reset').classList.remove('flex');
+        }
+
+        function resetProgress() {
+            // ローカルストレージをクリア
+            localStorage.removeItem('clock_passed_grades');
+            localStorage.removeItem('clock_unlocked_skins');
+            localStorage.removeItem('clock_username');
+
+            // ステート（内部データ）の初期化
+            state.username = 'とけいハカセ';
+            state.passedGrades = [];
+            state.selectedGrade = 10;
+            state.unlockedSkins = ['normal'];
+            state.selectedSkin = 'normal';
+
+            // UIの再描画
+            initUsernameUI();
+            renderGradeSelector();
+            renderSkinSelector();
+            applySkin('normal');
+            checkCertificateButtonVisibility();
+
+            closeResetModal();
+            playSound('wrong');
+        }
+    </script>
 </body>
 </html>
