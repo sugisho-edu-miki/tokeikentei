@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>時計検定 - 小学2年生向け</title>
   
-  <!-- 時計アイコン（Favicon & Apple Touch Icon） -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%234A90E2' stroke='%23357ABD' stroke-width='6'/><circle cx='50' cy='50' r='38' fill='white'/><text x='50' y='25' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>12</text><text x='78' y='54' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>3</text><text x='50' y='82' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>6</text><text x='22' y='54' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>9</text><line x1='50' y1='50' x2='50' y2='30' stroke='%23E74C3C' stroke-width='6' stroke-linecap='round'/><line x1='50' y1='50' x2='68' y2='50' stroke='%233498DB' stroke-width='4' stroke-linecap='round'/><circle cx='50' cy='50' r='4' fill='%23333'/></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%234A90E2' stroke='%23357ABD' stroke-width='6'/><circle cx='50' cy='50' r='38' fill='white'/><text x='50' y='25' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>12</text><text x='78' y='54' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>3</text><text x='50' y='82' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>6</text><text x='22' y='54' font-size='12' font-weight='bold' text-anchor='middle' fill='%23333'>9</text><line x1='50' y1='50' x2='50' y2='30' stroke='%23E74C3C' stroke-width='6' stroke-linecap='round'/><line x1='50' y1='50' x2='68' y2='50' stroke='%233498DB' stroke-width='4' stroke-linecap='round'/><circle cx='50' cy='50' r='4' fill='%23333'/></svg>">
 
   <style>
     :root {
@@ -19,7 +17,6 @@
       --text-color: #2C3E50;
     }
 
-    /* スキン定義 */
     body.skin-normal { --clock-bg: #FFFFFF; --clock-border: #4A90E2; }
     body.skin-lion { --clock-bg: #FFF3E0; --clock-border: #FB8C00; }
     body.skin-robot { --clock-bg: #E0F7FA; --clock-border: #00ACC1; }
@@ -34,7 +31,6 @@
     .screen { display: none; }
     .screen.active { display: block; }
 
-    /* 時計スタイル */
     .clock-container { position: relative; width: 220px; height: 220px; margin: 10px auto; }
     .clock-svg { width: 100%; height: 100%; }
     .clock-face { fill: var(--clock-bg); stroke: var(--clock-border); stroke-width: 8; }
@@ -43,7 +39,6 @@
     .hand-minute { stroke: #3498DB; stroke-width: 5; stroke-linecap: round; }
     .center-dot { fill: #333; }
 
-    /* スキン装飾イラスト */
     .skin-deko { display: none; text-anchor: middle; dominant-baseline: central; font-size: 40px; }
     body.skin-lion .deko-lion { display: block; }
     body.skin-robot .deko-robot { display: block; }
@@ -51,21 +46,18 @@
     body.skin-gold .deko-gold { display: block; }
     body.skin-space .clock-number { fill: #FFF; }
 
-    /* UIパーツ */
     .btn { background: #4A90E2; color: white; border: none; padding: 12px 24px; font-size: 18px; font-weight: bold; border-radius: 30px; cursor: pointer; margin: 8px; box-shadow: 0 4px 0 #357ABD; transition: transform 0.1s; }
     .btn:active { transform: translateY(4px); box-shadow: none; }
     .btn-secondary { background: #95A5A6; box-shadow: 0 4px 0 #7F8C8D; }
     .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
 
-    /* テンキー */
     .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 250px; margin: 10px auto; }
     .key-btn { background: #E2E8F0; border: none; padding: 12px; font-size: 20px; font-weight: bold; border-radius: 10px; cursor: pointer; }
-    .input-display { font-size: 28px; font-weight: bold; margin: 10px; padding: 5px 15px; background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 10px; display: inline-block; min-width: 140px; }
+    .input-display { font-size: 28px; font-weight: bold; margin: 10px; padding: 5px 15px; background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 10px; display: inline-block; min-width: 160px; }
+    .input-active { color: #4A90E2; border-bottom: 3px solid #4A90E2; }
 
-    /* ステータスバー */
     .status-bar { display: flex; justify-content: space-between; font-size: 16px; font-weight: bold; margin-bottom: 10px; background: #EBF8FF; padding: 8px 15px; border-radius: 10px; }
     
-    /* スキン選択 */
     .skin-selector { display: flex; justify-content: center; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
     .skin-card { border: 2px solid #DDD; border-radius: 10px; padding: 8px; cursor: pointer; text-align: center; width: 80px; }
     .skin-card.selected { border-color: #4A90E2; background: #EBF8FF; }
@@ -80,7 +72,6 @@
 <div class="container">
   <h1>🕰️ とけいけんてい</h1>
 
-  <!-- ホーム画面 -->
   <div id="screen-home" class="screen active">
     <p>きゅうをえらんでね！</p>
     <div id="level-buttons"></div>
@@ -91,7 +82,6 @@
     <button class="btn" onclick="startQuiz()">けんていをはじめる！</button>
   </div>
 
-  <!-- クイズ画面 -->
   <div id="screen-quiz" class="screen">
     <div class="status-bar">
       <span id="quiz-progress">だい 1 / 10 もん</span>
@@ -100,19 +90,15 @@
 
     <div id="question-text" style="font-size: 18px; font-weight: bold; margin: 5px 0;"></div>
 
-    <!-- 時計表示 -->
     <div class="clock-container">
       <svg class="clock-svg" viewBox="0 0 200 200" id="clock-svg">
         <circle cx="100" cy="100" r="90" class="clock-face"/>
-        <!-- スキンモチーフ -->
         <text x="100" y="110" class="skin-deko deko-lion">🦁</text>
         <text x="100" y="110" class="skin-deko deko-robot">🤖</text>
         <text x="100" y="110" class="skin-deko deko-space">🚀</text>
         <text x="100" y="110" class="skin-deko deko-gold">👑</text>
         
-        <!-- 文字盤数字 -->
         <g id="clock-numbers"></g>
-        <!-- 針 -->
         <line id="hour-hand" x1="100" y1="100" x2="100" y2="55" class="hand-hour"/>
         <line id="minute-hand" x1="100" y1="100" x2="100" y2="35" class="hand-minute"/>
         <circle cx="100" cy="100" r="6" class="center-dot"/>
@@ -120,12 +106,9 @@
     </div>
 
     <div id="feedback" class="feedback"></div>
-
-    <!-- 回答エリア (動的切り替え) -->
     <div id="answer-area"></div>
   </div>
 
-  <!-- 結果画面 -->
   <div id="screen-result" class="screen">
     <h2 id="result-title"></h2>
     <p id="result-score" style="font-size: 20px; font-weight: bold;"></p>
@@ -141,7 +124,6 @@
 </div>
 
 <script>
-  // グローバル状態
   let currentLevel = 10;
   let currentSkin = 'normal';
   let unlockedSkins = ['normal'];
@@ -154,6 +136,10 @@
   let userHour = 12, userMinute = 0;
   let currentMistakeCount = 0;
 
+  // テンキー入力制御フラグ
+  let inputH = '', inputM = '';
+  let activeInput = 'h'; // 'h' (時) または 'm' (分)
+
   const SKINS = [
     { id: 'normal', name: 'ふつう', icon: '⏰', level: 10 },
     { id: 'lion', name: 'らいおん', icon: '🦁', level: 9 },
@@ -162,7 +148,6 @@
     { id: 'gold', name: 'ごーるど', icon: '👑', level: 6 }
   ];
 
-  // 初期化
   window.onload = () => {
     initClockNumbers();
     renderLevelButtons();
@@ -238,7 +223,6 @@
     document.getElementById('minute-hand').setAttribute('y2', 100 + 65 * Math.sin(mRad));
   }
 
-  // クイズ処理
   function startQuiz() {
     currentQuestionIndex = 0;
     mistakes = [];
@@ -267,11 +251,31 @@
       else if (currentLevel === 9) m = Math.floor(Math.random() * 12) * 5;
       else m = Math.floor(Math.random() * 60);
 
-      // 出題タイプ D (混ざる)
       const types = ['choice', 'keypad', 'drag'];
       const type = types[Math.floor(Math.random() * types.length)];
       
       questions.push({ hour: h, minute: m, type: type });
+    }
+  }
+
+  // 入力完全消去＆「時」入力へ強制リセット
+  function clearKeypadInput() {
+    inputH = '';
+    inputM = '';
+    activeInput = 'h';
+    updateKeyDisplay();
+  }
+
+  function updateKeyDisplay() {
+    const elH = document.getElementById('in-h');
+    const elM = document.getElementById('in-m');
+    if (elH && elM) {
+      elH.textContent = inputH || '--';
+      elM.textContent = inputM || '--';
+      
+      // アクティブな方に下線等の強調を表示
+      elH.className = activeInput === 'h' ? 'input-active' : '';
+      elM.className = activeInput === 'm' ? 'input-active' : '';
     }
   }
 
@@ -321,8 +325,7 @@
         answerArea.appendChild(grid);
 
       } else if (q.type === 'keypad') {
-        let inputH = '', inputM = '';
-        let activeInput = 'h';
+        clearKeypadInput();
 
         const display = document.createElement('div');
         display.className = 'input-display';
@@ -345,31 +348,45 @@
         
         const kDel = document.createElement('button');
         kDel.className = 'key-btn'; kDel.textContent = 'けす';
-        kDel.onclick = () => { inputH = ''; inputM = ''; updateKeyDisplay(); };
+        kDel.onclick = () => clearKeypadInput();
 
         const kSub = document.createElement('button');
         kSub.className = 'key-btn'; kSub.style.background = '#4A90E2'; kSub.style.color = '#FFF'; kSub.textContent = 'OK';
-        kSub.onclick = () => checkChoiceAnswer(parseInt(inputH), parseInt(inputM));
+        kSub.onclick = () => checkChoiceAnswer(parseInt(inputH || -1), parseInt(inputM || -1));
 
         keypad.appendChild(kDel); keypad.appendChild(k0); keypad.appendChild(kSub);
         answerArea.appendChild(keypad);
-
-        function pressKey(num) {
-          if (activeInput === 'h') {
-            inputH += num;
-            if (parseInt(inputH) > 12 || inputH.length >= 2) activeInput = 'm';
-          } else {
-            if (inputM.length < 2) inputM += num;
-          }
-          updateKeyDisplay();
-        }
-
-        function updateKeyDisplay() {
-          document.getElementById('in-h').textContent = inputH || '--';
-          document.getElementById('in-m').textContent = inputM || '--';
-        }
       }
     }
+  }
+
+  // テンキー入力制御（修正版）
+  function pressKey(num) {
+    if (activeInput === 'h') {
+      if (inputH === '') {
+        inputH = String(num);
+        // 2〜9が押されたら1桁確定（13時以上は存在しないため）即座に「分」へ
+        if (num >= 2 && num <= 9) {
+          activeInput = 'm';
+        }
+      } else if (inputH === '1') {
+        // 最初に「1」が押されていた場合、0,1,2 のみ受け付けて10,11,12時とする
+        if (num <= 2) {
+          inputH += String(num);
+          activeInput = 'm';
+        } else {
+          // 13時以降は無効とし、「分」へ無理に移行させず「時」のままにする
+          inputH = String(num);
+          if (num >= 2) activeInput = 'm';
+        }
+      }
+    } else {
+      // 「分」の入力（2桁まで）
+      if (inputM.length < 2) {
+        inputM += String(num);
+      }
+    }
+    updateKeyDisplay();
   }
 
   function generateChoices(correctH, correctM) {
@@ -421,9 +438,13 @@
     }
     document.getElementById('feedback').style.color = '#E74C3C';
     document.getElementById('feedback').textContent = '❌ ちがうよ！もう一かい！';
+    
+    // 間違えたら入力データ・フラグを完全初期化（「時」から確実に打ち直せる）
+    if (questions[currentQuestionIndex].type === 'keypad') {
+      clearKeypadInput();
+    }
   }
 
-  // 針ドラッグ
   function setupClockDrag() {
     const svg = document.getElementById('clock-svg');
     let isDragging = false;
@@ -440,13 +461,11 @@
       let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
       if (angle < 0) angle += 360;
 
-      // 針のスナップ (C仕様)
-      let step = (currentLevel >= 8) ? 1 : 5; // 8級以上は1分、それ以下は5分単位
+      let step = (currentLevel >= 8) ? 1 : 5;
       let m = Math.round((angle / 360) * 60 / step) * step;
       if (m === 60) m = 0;
 
       userMinute = m;
-      // ざっくり長針に連動して短針を決定
       userHour = targetHour; 
 
       drawClock(userHour, userMinute);
@@ -470,7 +489,6 @@
     document.getElementById('result-title').textContent = isPassed ? '🎉 ごうかく！' : '😭 ざんねん…';
     document.getElementById('result-score').textContent = `10もんちゅう ${score}もん せいかい！`;
 
-    // ごほうび解放チェック
     const unlockedMsg = document.getElementById('unlocked-msg');
     unlockedMsg.textContent = '';
     if (isPassed) {
@@ -483,7 +501,6 @@
       renderSkinSelector();
     }
 
-    // おさらい表示
     const reviewArea = document.getElementById('review-area');
     const reviewList = document.getElementById('review-list');
     if (mistakes.length > 0) {
